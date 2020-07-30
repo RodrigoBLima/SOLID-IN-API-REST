@@ -19,7 +19,7 @@ export class CreateUserUseCase {
     const user = new User(data);
     await this.usersRepository.save(user);
 
-    this.emailProvider.sendMail({
+    await this.emailProvider.sendMail({
       to: {
         name: data.name,
         email: data.email,
