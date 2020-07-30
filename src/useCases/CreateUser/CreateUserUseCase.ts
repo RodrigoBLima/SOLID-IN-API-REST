@@ -5,9 +5,9 @@ import { IMailProvider } from "../../providers/IMailProvider";
 
 export class CreateUserUseCase {
   constructor(
-      private usersRepository: IUsersRepository,
-    private emailProvider: IMailProvider,
-      ) {}
+    private usersRepository: IUsersRepository,
+    private emailProvider: IMailProvider
+  ) {}
 
   async execute(data: ICreateUserRequestDTO) {
     const userAlreadyExists = await this.usersRepository.findByEmail(
@@ -20,16 +20,16 @@ export class CreateUserUseCase {
     await this.usersRepository.save(user);
 
     this.emailProvider.sendMail({
-        to: {
-            name:data.name,
-            email: data.email,
-        }, 
-        from: {
-            name: 'Equipe do aplicativo',
-            email: 'noreply@equipe.com',
-        },
-        subject: "Seja bem vindo a plataforma",
-        body:'<p>Agora você já pode fazer login</p>'
-    })
+      to: {
+        name: data.name,
+        email: data.email,
+      },
+      from: {
+        name: "Equipe do aplicativo",
+        email: "noreply@equipe.com",
+      },
+      subject: "Seja bem vindo a plataforma",
+      body: "<p>Agora você já pode fazer login</p>",
+    });
   }
 }
